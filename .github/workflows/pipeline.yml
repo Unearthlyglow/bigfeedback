@@ -57,44 +57,44 @@ jobs:
       with:
         name: bigFeedback 
         path: ./artifacts 
-  # deliver:
-  #   name: Release
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v3
-  #   - name: Download binary 
-  #     uses: actions/download-artifact@v3
-  #     with:
-  #       name: api
-  #   - name: Changelog
-  #     uses: scottbrenner/generate-changelog-action@master
-  #     id: Changelog
-  #   - name: Create Release
-  #     id: create_release
-  #     uses: actions/create-release@v1
-  #     env:
-  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-  #     with:
-  #       tag_name: 1.2.1 #${{ github.ref }}
-  #       release_name: 1.2.1 #${{ github.ref }}
-  #       body: |
-  #         ${{ steps.Changelog.outputs.changelog }}
-  #       draft: false
-  #       prerelease: false
-  #   - name: Upload Release Binary
-  #     uses: actions/upload-release-asset@v1      
-  #     env:
-  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #     with:
-  #       upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-  #       asset_path: api
-  #       asset_name: api
-  #       asset_content_type: application/octet-stream #The content type is a binary, so we need to define this as an octet stream so that it can be recognized by GitHub.
-  #   - name: Deploy function
-  #     id: deploy
-  #     uses: google-github-actions/deploy-cloud-functions@main 
+  deliver:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Download binary 
+      uses: actions/download-artifact@v3
+      with:
+        name: api
+    - name: Changelog
+      uses: scottbrenner/generate-changelog-action@master
+      id: Changelog
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        body: |
+          ${{ steps.Changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Binary
+      uses: actions/upload-release-asset@v1      
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: api
+        asset_name: api
+        asset_content_type: application/octet-stream #The content type is a binary, so we need to define this as an octet stream so that it can be recognized by GitHub.
+    # - name: Deploy function
+    #   id: deploy
+    #   uses: google-github-actions/deploy-cloud-functions@main 
   #     env:
   #         credentials: ${{ secrets.gcp_credentials }}
   #     with:
