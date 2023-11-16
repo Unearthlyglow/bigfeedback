@@ -75,8 +75,8 @@ jobs:
           body: |
             Changes in this Release
             - Message From DevOps Janitor, A.Malisi:: Much love, brother.  
-          draft: false
-          prerelease: false
+          draft: true
+          prerelease: true
 
 
     # - name: Deploy function
