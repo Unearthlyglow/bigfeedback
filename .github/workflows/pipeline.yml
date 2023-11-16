@@ -81,8 +81,8 @@ jobs:
         release_name: ${{ github.ref }}
         body: |
           ${{ steps.Changelog.outputs.changelog }}
-        draft: false
-        prerelease: false
+        draft: true
+        prerelease: true
     - name: Upload Release Binary
       uses: actions/upload-release-asset@v1      
       env:
