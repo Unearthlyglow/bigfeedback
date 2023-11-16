@@ -74,7 +74,7 @@ jobs:
           release_name: Release 1.1 #${{ github.ref }}
           body: |
             Changes in this Release
-            - Message From DevOps Janitor, A.Malisi:: Hey, Phuong, don't forget you have to program the roomba today(11/16/23) because you lost badly at melee.
+            - Message From DevOps Janitor, A.Malisi:: With love. 
           draft: false
           prerelease: false
 
