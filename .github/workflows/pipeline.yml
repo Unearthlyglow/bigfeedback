@@ -55,7 +55,7 @@ jobs:
     - name: Archive 
       uses: actions/upload-artifact@v3
       with:
-        name: api 
+        name: bigFeedback 
         path: ./artifacts 
   # deliver:
   #   name: Release
