@@ -50,7 +50,7 @@ jobs:
     - name: Copy Files 
       run: |
         mkdir  artifacts
-        cp api artifacts/.
+        cp bigFeedback artifacts/.
 
     - name: Archive 
       uses: actions/upload-artifact@v3
