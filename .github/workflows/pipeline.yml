@@ -70,11 +70,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: 1.1 #${{ github.ref }}
-          release_name: Release 1.1 #${{ github.ref }}
+          tag_name: 1.2 #${{ github.ref }}
+          release_name: Release 1.2 #${{ github.ref }}
           body: |
             Changes in this Release
-            - Message From DevOps Janitor, A.Malisi:: With love. 
+            - Message From DevOps Janitor, A.Malisi:: Much love, brother.  
           draft: false
           prerelease: false
 
