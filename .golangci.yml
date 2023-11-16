@@ -14,6 +14,9 @@ linters-settings:
 
 issues:
   exclude-use-default: false
+  exclude:
+  - "ST1000: at least one file in a package should have a package comment"
+
 
 output:
   # colored-line-number|line-number|json|tab|checkstyle|code-climate, default is "colored-line-number"

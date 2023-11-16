@@ -5,7 +5,6 @@ import (
 	"fmt"
 )
 
-///Package Commment?
 
 func main() {
 
