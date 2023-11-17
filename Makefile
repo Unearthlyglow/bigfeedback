@@ -34,11 +34,6 @@ report:
 
 check-format:
 	go fmt ./...
-	# The below code was provided however it kept returning
-	# errors in the pipeline so I opted for a more simpler 
-	# setup. I will check back to see if the below code 
-	# is more appropriate whenever I circle back through this
-	# project. 
 	# test -z $$(go fmt ./...)
 
 install-lint:
