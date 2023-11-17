@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set up Go 1.x 
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: ^1.16
     - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Run Format Check
       run: make check-format
     - name: Vet
@@ -23,9 +23,9 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Lint
-        uses: golangci/golangci-lint-action@v2 
+        uses: golangci/golangci-lint-action@v3
   test:
     name: Test Application
     needs:
@@ -86,21 +86,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: elgohr/Github-Release-Action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: 1.2 #${{ github.ref }}
-          release_name: Release 1.2 #${{ github.ref }}
-          body: |
-            Changes in this Release
-            - Message From DevOps Janitor, A.Malisi:: Much love, brother.  
-          draft: true
-          prerelease: true
+          title: A release Message
+          # tag_name: 1.2 #${{ github.ref }}
+          # release_name: Release 1.2 #${{ github.ref }}
+          # body: |
+          #   Changes in this Release
+          #   - Message From DevOps Janitor, A.Malisi:: Much love, brother.  
+          # draft: true
+          # prerelease: true
 
 
     # - name: Deploy function
