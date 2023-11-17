@@ -1,4 +1,4 @@
-GO_VERSION := 1.20  
+GO_VERSION := 1.21.3  
 
 setup: 
 	install-go
