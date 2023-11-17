@@ -5,7 +5,6 @@ import (
 	"fmt"
 )
 
-
 func main() {
 
 	word := "HELLO"
