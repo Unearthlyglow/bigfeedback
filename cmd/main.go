@@ -12,5 +12,5 @@ func main() {
 	agecount.AgeCount(word)
 
 	fmt.Println(word)
-
+fmt.Println("I am what I am")
 }

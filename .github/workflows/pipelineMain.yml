@@ -1,0 +1,127 @@
+name: Pipeline Checks
+on:
+  push:
+    branches: 
+    - main
+jobs:
+  format-check:
+    name: Check formatting
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Go 1.x 
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.16
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    - name: Run Format Check
+      run: make check-format
+    - name: Vet
+      run: go vet ./... # <1>
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint
+        uses: golangci/golangci-lint-action@v2 
+  test:
+    name: Test Application
+    needs:
+      - format-check
+      - lint
+    runs-on: ubuntu-latest 
+    steps:
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v3
+      with:
+        go-version: ^1.20
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v3
+    - name: Run Test
+      run: make test 
+    - name: Coverage Check
+      run: make coverage 
+    - name: Generate Report
+      run: make report 
+    - name: Copy Files
+      run: |
+        mkdir  reports
+        cp cover.html reports/.
+
+    - name: Archive 
+      uses: actions/upload-artifact@v3
+      with:
+        name: reports
+        path: ./reports 
+  build:
+    name: Build App
+    runs-on: ubuntu-latest 
+    needs: test 
+    steps:
+    - name: Set up Go 1.x 
+      uses: actions/setup-go@v3 
+      with:
+        go-version: ^1.20
+
+    - name: Check out code into the Go module directory 
+      uses: actions/checkout@v4
+
+    - name: Build
+      run: make build 
+
+    - name: Copy Files 
+      run: |
+        mkdir  artifacts
+        cp bigFeedback artifacts/.
+
+    - name: Archive 
+      uses: actions/upload-artifact@v3
+      with:
+        name: bigFeedback 
+        path: ./artifacts 
+  deliver:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: 
+      - format-check
+      - lint
+      - test 
+      - build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: 1.2 #${{ github.ref }}
+          release_name: Release 1.2 #${{ github.ref }}
+          body: |
+            Changes in this Release
+            - Message From DevOps Janitor, A.Malisi:: Much love, brother.  
+          draft: true
+          prerelease: true
+      
+   
+    # - name: Deploy function
+    #   id: deploy
+    #   uses: google-github-actions/deploy-cloud-functions@main 
+  #     env:
+  #         credentials: ${{ secrets.gcp_credentials }}
+  #     with:
+  #       name: translate                                        
+  #       entry_point: Translate                                 
+  #       runtime: go116
+  #       project_id: "Translator"
+  #       # credentaials: ${{ secrets.gcp_credentials }}            
+  #   - id: test
+  #     run: curl "${{ steps.deploy.outputs.url }}/hello"        
+#Stopping at Listing 4.3 pipeline.yml, 11/15/23: 3:20. YML File for Google Cloud deployment isn't working yet. 
+#Issue looks to have to do with the 'credentials" keyword on line 103.....'
+
+
+
