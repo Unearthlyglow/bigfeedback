@@ -1,5 +1,4 @@
 name: Pipeline Checks
-
 on:
   push:
     branches: 
@@ -106,8 +105,8 @@ jobs:
             - Message From DevOps Janitor, A.Malisi:: Much love, brother.  
           draft: true
           prerelease: true
-
-
+      
+   
     # - name: Deploy function
     #   id: deploy
     #   uses: google-github-actions/deploy-cloud-functions@main 
