@@ -135,7 +135,7 @@ jobs:
           body: |
             Changes in this Release
             - Added Docker to pipeline.  
-          draft: false
+          draft: true
           prerelease: true
 
       
