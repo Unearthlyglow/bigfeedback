@@ -86,6 +86,7 @@ jobs:
           - format-check
           - lint
           - test
+          - build
           runs-on: ubuntu-latest
           steps:
             - 

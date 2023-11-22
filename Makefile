@@ -20,7 +20,7 @@ upgrade-go:
 	rm go$(GO_VERSION).linux-amd64.tar.gz
 
 build:
-	go build -o bigFeedback cmd/main.go
+	go build -o bigFeedback main.go
 #The make build command will compile the main application into a binary named bigFeedback.
 test:
 	go test ./... -coverprofile=coverage.out
