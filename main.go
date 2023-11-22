@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "bigFeedback/agecount"
+	// "bigFeedback/agecount".
 	"fmt"
 )
 
@@ -9,7 +9,7 @@ func main() {
 
 	word := "HELLO"
 
-	// agecount.AgeCount(word)
+	// agecount.AgeCount(word).
 
 	fmt.Println(word)
 
