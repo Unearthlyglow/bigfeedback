@@ -81,7 +81,7 @@ jobs:
         name: bigFeedback 
         path: ./artifacts 
 
-  Docker:
+  docker:
           needs:  
           - format-check
           - lint
@@ -119,6 +119,7 @@ jobs:
       - lint
       - test 
       - build
+      - docker
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -134,7 +135,7 @@ jobs:
           body: |
             Changes in this Release
             - Added Docker to pipeline.  
-          draft: true
+          draft: false
           prerelease: true
 
       
