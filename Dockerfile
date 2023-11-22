@@ -39,6 +39,7 @@ WORKDIR /app
 
 # Copy go mod and sum files.
 COPY go.mod ./
+# go.sum
 
 # Download all dependencies.
 RUN go mod download
@@ -50,6 +51,12 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o /cmd/bigfeedback ./cmd
 
 # Start a new stage from scratch for smaller image size.
+#Install ca-certificates Package: ca-certificates is a package in Linux that contains a set of CA (Certificate Authority) certificates. These are used for establishing the authenticity of SSL/TLS connections (for example, when your application makes HTTPS requests to other web services). Without these certificates, your application might not be able to securely connect to other services over HTTPS, as it won't be able to verify the server's SSL certificate.
+
+# Use of --no-cache Option: The --no-cache option is specific to apk, which is the package manager for Alpine Linux. This option tells apk to not cache the index locally, which is a practice that reduces the size of the built Docker images. In Docker environments, especially when building minimal images for production, it's a common practice to avoid keeping unnecessary files in the image to reduce its size. By using --no-cache, it ensures that the index used by the package manager to install ca-certificates is not stored in the Docker image, thereby making the image smaller.
+
+# In summary, this command is about ensuring that your Docker container has the necessary certificates to establish secure connections, while also keeping the size of your Docker image as small as possible by not caching extra data.
+
 FROM alpine:latest  
 RUN apk --no-cache add ca-certificates
 
